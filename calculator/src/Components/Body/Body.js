@@ -1,14 +1,6 @@
 import React, { useState } from "react";
-import Form from "./../Form/Form.js";
-import { FaTimes } from "react-icons/fa";
 
 export default function Body() {
-  const [isPopupVisible, setPopupVisibility] = useState(false);
-
-  const handlePayEMIClick = () => {
-    setPopupVisibility(true);
-  };
-
   return (
     <div className="bg-white py-24 sm:py-10">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -53,13 +45,13 @@ export default function Body() {
                     INR
                   </span>
                 </p>
-                <a
-                  href="#"
-                  onClick={handlePayEMIClick}
-                  className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
+                <button 
+                onClick={() => {
+                  window.location.href = "/form";
+                }}
+                className="mt-10 block w-full rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                   Pay EMI
-                </a>
+                </button>
                 <p className="mt-6 text-xs leading-5 text-gray-600">
                   Invoices and receipts available for easy company reimbursement
                 </p>
@@ -68,31 +60,6 @@ export default function Body() {
           </div>
         </div>
       </div>
-
-      {isPopupVisible && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-8 max-w-md rounded-md">
-            <div className="flex justify-end">
-              <button
-                type="button"
-                className="text-gray-500 hover:text-gray-700 bg-transparent border-none"
-                onClick={() => setPopupVisibility(false)}
-              >
-                <FaTimes size={20} />
-              </button>
-            </div>
-            <h2 className="text-2xl font-bold mb-4">Payment Details</h2>
-            <Form />
-            <button
-              type="button"
-              className="bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-500"
-              onClick={() => setPopupVisibility(false)}
-            >
-              Submit
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

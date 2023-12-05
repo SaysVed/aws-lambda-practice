@@ -1,6 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Form = () => {
+  // State to hold form data
+  const [formData, setFormData] = useState({
+    amount: "",
+    month: "",
+    lateCharges: "",
+    emiNumber: "",
+  });
+
+  // Function to handle form input changes
+  const handleInputChange = (e) => {
+    const { id, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  // Function to handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    // Log form data for demonstration purposes
+    console.log("Form Data:", formData);
+
+    // TODO: Send a POST request with formData to your server
+    // Example using fetch:
+    // fetch('your_api_endpoint', {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    //   body: JSON.stringify(formData),
+    // })
+    //   .then(response => response.json())
+    //   .then(data => console.log('Success:', data))
+    //   .catch(error => console.error('Error:', error));
+  };
+
   return (
     <div>
       <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
