@@ -1,49 +1,47 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Form = () => {
-  // State to hold form data
+  const navigate = useNavigate();
+  
   const [formData, setFormData] = useState({
     amount: "",
     month: "",
     lateCharges: "",
-    emiNumber: "",
+    emiNo: "",
   });
 
-  // Function to handle form input changes
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     const { id, value } = e.target;
-    setFormData((prevData) => ({ ...prevData, [id]: value }));
+    setFormData((prevData) => ({
+      ...prevData,
+      [id]: value,
+    }));
   };
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    // ...
 
-    // Log form data for demonstration purposes
-    console.log("Form Data:", formData);
-
-    // TODO: Send a POST request with formData to your server
-    // Example using fetch:
-    // fetch('your_api_endpoint', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //   },
-    //   body: JSON.stringify(formData),
-    // })
-    //   .then(response => response.json())
-    //   .then(data => console.log('Success:', data))
-    //   .catch(error => console.error('Error:', error));
-
-  
+    // Replace history.push with useNavigate
+    navigate(`/pay-emi`, {
+      state: {
+        amount: formData.amount,
+        month: formData.month,
+        lateCharges: formData.lateCharges,
+        emiNo: formData.emiNo,
+      },
+    });
   };
+
 
   return (
     <div>
       <div className="fixed inset-0 flex items-center justify-center bg-gray-500 bg-opacity-50">
         <div className="bg-white p-6 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Enter Details</h2>
-          <form>
+
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <label
                 htmlFor="amount"
@@ -56,6 +54,8 @@ const Form = () => {
                 id="amount"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                 placeholder="Enter amount"
+                value={formData.amount}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4">
@@ -70,6 +70,8 @@ const Form = () => {
                 id="month"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                 placeholder="Enter month"
+                value={formData.month}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4">
@@ -84,29 +86,34 @@ const Form = () => {
                 id="lateCharges"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                 placeholder="Enter late charges"
+                value={formData.lateCharges}
+                onChange={handleChange}
               />
             </div>
             <div className="mb-4">
               <label
-                htmlFor="emiNumber"
+                htmlFor="emiNo"
                 className="block text-gray-700 font-bold mb-2"
               >
                 EMI Number
               </label>
               <input
                 type="number"
-                id="emiNumber"
+                id="emiNo"
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-500"
                 placeholder="Enter EMI number"
+                value={formData.emiNo}
+                onChange={handleChange}
               />
             </div>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-500"
-            >
-              Submit
-            </button>
 
+            <button
+        type="submit"
+        className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring focus:ring-blue-500"
+        onClick={handleSubmit}
+      >
+        Submit
+      </button>
           </form>
         </div>
       </div>
